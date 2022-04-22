@@ -14,19 +14,21 @@ function App() {
       <NoteState>
         <Router>
           <Navbar />
-          {/* <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route exact path="/about">
-            <About/>
-          </Route> 
-        </Switch> */}
+          <div className="container">
+            {/* <Switch>
+                          <Route exact path="/">
+                            <Home />
+                          </Route>
+                          <Route exact path="/about">
+                            <About/>
+                          </Route> 
+                        </Switch> */}
 
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/about" element={<About />} />
-          </Routes>
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+              <Route exact path="/about" element={<About />} />
+            </Routes>
+          </div>
         </Router>
       </NoteState>
     </>
