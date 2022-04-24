@@ -6,7 +6,7 @@ const NoteState = (props) => {
 
     const notesInitial = [
         {
-            "_id": "62613c9a77d5f5de060b53cf",
+            "_id": "62613c9a77d5f5de060b33cf",
             "user": "6260041f8ed5221e7adc66a9",
             "title": "my title",
             "description": "please concentrate on your study don't divert",
@@ -15,7 +15,7 @@ const NoteState = (props) => {
             "__v": 0
         },
         {
-            "_id": "6262253d799320b1c925897e",
+            "_id": "6262253d799320b16925897e",
             "user": "6260041f8ed5221e7adc66a9",
             "title": "my title",
             "description": "please concentrate on your study don't divert",
@@ -24,7 +24,7 @@ const NoteState = (props) => {
             "__v": 0
         },
         {
-            "_id": "62613c9a77d5f5de060b53cf",
+            "_id": "62613c9a77d5f5de061b53cf",
             "user": "6260041f8ed5221e7adc66a9",
             "title": "my title",
             "description": "please concentrate on your study don't divert",
@@ -33,7 +33,7 @@ const NoteState = (props) => {
             "__v": 0
         },
         {
-            "_id": "6262253d799320b1c925897e",
+            "_id": "6262253d099320b1c925897e",
             "user": "6260041f8ed5221e7adc66a9",
             "title": "my title",
             "description": "please concentrate on your study don't divert",
@@ -42,7 +42,7 @@ const NoteState = (props) => {
             "__v": 0
         },
         {
-            "_id": "62613c9a77d5f5de060b53cf",
+            "_id": "62613c9a77d0f5de060b53cf",
             "user": "6260041f8ed5221e7adc66a9",
             "title": "my title",
             "description": "please concentrate on your study don't divert",
@@ -51,7 +51,7 @@ const NoteState = (props) => {
             "__v": 0
         },
         {
-            "_id": "6262253d799320b1c925897e",
+            "_id": "6262253dr99320b1c925897e",
             "user": "6260041f8ed5221e7adc66a9",
             "title": "my title",
             "description": "please concentrate on your study don't divert",
@@ -72,7 +72,7 @@ const NoteState = (props) => {
         console.log('Adding a new note');
 
         const note = {
-            "_id": "6262253d799320b1c925897e",
+            "_id": "6262253d79932vb1c925897e",
             "user": "6260041f8ed5221e7adc66a9",
             "title": title,
             "description": description,
@@ -84,12 +84,15 @@ const NoteState = (props) => {
     }
 
     // Delete A Note
-    const deleteNote = () => {
-
+    const deleteNote = (id) => {
+        //TODO: api call
+        console.log('Deleting the note id' + id);
+        const newNotes = notes.filter((note) => { return note._id !== id })
+        setNotes(newNotes)
     }
 
     // Edit A Note
-    const editNote = () => {
+    const editNote = (id, title, description, tag) => {
 
     }
 
