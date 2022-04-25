@@ -14,10 +14,13 @@ router.post('/createuser', [
    body('email', 'Enter a valid email').isEmail(),
    body('password', 'Password must be atleast 5 character').isLength({ min: 5 }),
 ], async (req, res) => {
+
+   let success = false;
+
    //If there are errors ,return Bad request and the errors
    const errors = validationResult(req); //https://express-validator.github.io/docs/
    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() }); // here it will return the error message
+      return res.status(400).json({ success, errors: errors.array() }); // here it will return the error message
    }
 
    //https://express-validator.github.io/docs/
@@ -27,7 +30,7 @@ router.post('/createuser', [
       //if email will duplicate
       let user = await User.findOne({ email: req.body.email });
       if (user) {
-         return res.status(400).json({ error: "Sorry a user with this email already exists" })
+         return res.status(400).json({ success, error: "Sorry a user with this email already exists" })
       }
 
       const salt = await bcrypt.genSalt(10);
@@ -52,7 +55,8 @@ router.post('/createuser', [
 
 
       // res.json(user);
-      res.json({ authtoken })
+      success = true;
+      res.json({ success, authtoken })
    }
    //catch the error
    catch (error) {
