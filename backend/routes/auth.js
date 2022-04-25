@@ -68,6 +68,8 @@ router.post('/login', [
    body('password', 'Password cannot be blank').exists(),
 ], async (req, res) => {
 
+   let success = false;
+
    //If there are errors ,return Bad request and the errors
    const errors = validationResult(req); //https://express-validator.github.io/docs/
    if (!errors.isEmpty()) {
@@ -79,12 +81,14 @@ router.post('/login', [
    try {
       let user = await User.findOne({ email });
       if (!user) {
+         success = false;
          return res.status(400).json({ error: "please try to login with correct credential" })
       }
 
       const passwordCompare = await bcrypt.compare(password, user.password)
       if (!passwordCompare) {
-         return res.status(400).json({ error: "please try to login with correct credential" })
+         success = false;
+         return res.status(400).json({ success, error: "please try to login with correct credential" })
 
       }
 
@@ -93,8 +97,9 @@ router.post('/login', [
             id: user.id
          }
       }
-      const authtoken = jwt.sign(data, JWT_SECRET)
-      res.json({ authtoken })
+      const authtoken = jwt.sign(data, JWT_SECRET);
+      success = true;
+      res.json({ success, authtoken })
    } catch (error) {
       console.log(error.message);
       res.status(500).send("Internal Server Error");
@@ -106,15 +111,15 @@ router.post('/login', [
 
 
 //Rout 3:Get loggedin user details using :POST "/api/auth/getuser". login require 
-router.post('/getuser', fetchuser,  async (req, res) => {
+router.post('/getuser', fetchuser, async (req, res) => {
 
    try {
-     userId = req.user.id;
-     const user = await User.findById(userId).select("-password")
-     res.send(user)
+      userId = req.user.id;
+      const user = await User.findById(userId).select("-password")
+      res.send(user)
    } catch (error) {
-     console.error(error.message);
-     res.status(500).send("Internal Server Error");
+      console.error(error.message);
+      res.status(500).send("Internal Server Error");
    }
 })
 
